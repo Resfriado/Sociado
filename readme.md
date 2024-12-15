@@ -4,6 +4,7 @@
 [] - Enviar mensagem somente quando tiver conteúdo no input
 [] - Horário de envio da mensagem
 [] - Avisar quando alguem entra e sai do chat
+[] - Responder mensagem
 [] - Usernames únicos
 [] - Mostrar quando alguém estiver digitando
 [] - Mencionar alguém
