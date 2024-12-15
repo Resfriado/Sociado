@@ -1,21 +1,132 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-  </head>
-  <body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sociado</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+</head>
+
+<style>
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .avatar-div {
+    margin-right: 15px;
+  }
+
+  #messages {
+    margin-bottom: 70px; /* Espaço reservado para o input fixado */
+  }
+
+  .container-send-message {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #14161b; /* Fundo para destacar o input */
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    z-index: 10;
+  }
+</style>
+
+<body>
   <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
+    <div class="container" id="messages">
+      <!-- MESSAGE -->
+    </div>
+
+    <div class="container-send-message flex-container">
+      <input id="messageInput" class="input is-rounded" type="text" placeholder="Escreva sua mensagem..."
+        onkeypress="handle(event)" />
+      <button class="button is-rounded" onclick="sendMessage()">
+        <span class="icon">
+          <i class="fas fa-paper-plane"></i>
+        </span>
+      </button>
     </div>
   </section>
-  </body>
+</body>
+
+<script>
+  const messageInput = document.getElementById("messageInput");
+  const messages = [
+    {
+      avatar:
+        "https://cdn.discordapp.com/avatars/591794354658476066/60d6deedb3a35a5157dcd10e6939e4b1.png?size=2048",
+      name: "Resfriado",
+      content: "desse jeito pensei q tinha ficado decepcionada",
+    },
+    {
+      avatar:
+        "https://cdn.discordapp.com/avatars/591794354658476066/60d6deedb3a35a5157dcd10e6939e4b1.png?size=2048",
+      name: "Resfriado",
+      content: "🙄",
+    },
+    {
+      avatar:
+        "https://cdn.discordapp.com/avatars/591794354658476066/60d6deedb3a35a5157dcd10e6939e4b1.png?size=2048",
+      name: "Resfriado",
+      content: "dai ja botei culpa em outro",
+    },
+  ];
+
+  const messagesContainer = document.getElementById("messages");
+
+  messages.forEach((message) => {
+    messagesContainer.innerHTML += `
+    <div class="message">
+        <div class="flex-container">
+          <div class="avatar-div is-one-fifth">
+            <figure class="image is-64x64">
+              <img class="is-rounded"
+                src="${message.avatar}" />
+            </figure>
+          </div>
+          <div>
+            <h1><strong>${message.name}</strong></h1>
+            <p>${message.content}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  function sendMessage() {
+    messagesContainer.innerHTML += `
+    <div class="message">
+        <div class="flex-container">
+          <div class="avatar-div is-one-fifth">
+            <figure class="image is-64x64">
+              <img class="is-rounded"
+                src="https://cdn.discordapp.com/avatars/701953428510736396/9cbe6ee6a8af74bff4abb0bb7580eb24.png?size=2048" />
+            </figure>
+          </div>
+          <div>
+            <h1><strong>Devluar</strong></h1>
+            <p>${messageInput.value}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    messageInput.value = "";
+  }
+
+  function handle(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault(); // Ensure it is only this code that runs
+
+      sendMessage()
+    }
+  }
+
+</script>
+
 </html>
