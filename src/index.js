@@ -1,9 +1,25 @@
 const app = require("./app");
 const config = require("./config");
 const logger = require("./config/logger");
+const { Server } = require('socket.io');
 
 const server = app.listen(config.port, () => {
   logger.info(`Listening to port ${config.port}`);
+});
+
+const socketIO = new Server(server);
+
+socketIO.on("connection", (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('chat.message', (msg) => {
+    console.log('message: ', msg);
+    socketIO.emit('chat.message', msg)
+  });
 });
 
 const exitHandler = () => {
@@ -31,3 +47,5 @@ process.on("SIGTERM", () => {
     server.close();
   }
 });
+
+module.exports = {socketIO}
